@@ -40,13 +40,24 @@ const App =() => {
     }
 }
 const checkForRowOfThree =()=>{
-  for(let i =0 ;i<47;i++){
+  for(let i =0 ;i<64;i++){
     const rowOfThree = [i,i+1,i+2]; 
     const decidedColor = currentColorArrangement[i] ;// grabbing first color item at index 0 or 1 etc
     const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55, 62, 63, 64]
     if (notValid.includes(i)) continue
     if(rowOfThree.every(square =>currentColorArrangement[square] === decidedColor)){
        rowOfThree.forEach(square =>currentColorArrangement[square]='');
+    }
+  }
+}
+const checkForRowOfFour =()=>{
+  for(let i =0 ;i<64;i++){
+    const rowOfFour = [i,i+1,i+2,i+3]; 
+    const decidedColor = currentColorArrangement[i] ;// grabbing first color item at index 0 or 1 etc
+    const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55, 62, 63, 64]
+    if (notValid.includes(i)) continue
+    if(rowOfFour.every(square =>currentColorArrangement[square] === decidedColor)){
+       rowOfFour.forEach(square =>currentColorArrangement[square]='');
     }
   }
 }
@@ -70,11 +81,13 @@ const checkForRowOfThree =()=>{
     const timer = setInterval(()=>{
       checkForColumnOfFour();
       checkForColumnOfThree();
+      checkForRowOfFour();
+      checkForRowOfThree();
       setCurrentColorArrangement([...currentColorArrangement]);
     },100)
     return () =>clearInterval(timer);
    
-  },[checkForColumnOfFour,checkForColumnOfThree,currentColorArrangement]);
+  },[checkForColumnOfFour,checkForColumnOfThree ,checkForRowOfFour,checkForRowOfThree ,currentColorArrangement]);
  
   console.log("current ",currentColorArrangement);
 
